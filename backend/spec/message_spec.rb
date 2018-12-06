@@ -69,4 +69,15 @@ describe 'Message' do
     expect(Message.to_jsonmodel(msg.id).assignee_user).to be_nil
   end
 
+  it "can provide a list of messages assigned to a given user" do
+    [test_user_1, test_user_1, test_user_2].each do |user|
+      Message.create_from_json(JSONModel(:message)
+                                 .from_hash(:title => test_title,
+                                            :assignee_user => {:ref => user.uri}))
+    end
+
+    expect(Message.messages_for_user(test_user_1.username).length).to eq(2)
+    expect(Message.messages_for_user(test_user_2.username).length).to eq(1)
+  end
+
 end
