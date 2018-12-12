@@ -1,0 +1,7 @@
+en:
+  message:
+    title: Title
+    description: Description
+    _frontend:
+      action:
+        save: Create message
