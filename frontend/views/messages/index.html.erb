@@ -1,0 +1,38 @@
+<%# FIXME: I18n %>
+
+<h2>Messages</h2>
+
+
+<h3>Assigned to you</h3>
+
+<%= @user_summary.assigned_to_user %>
+
+
+<h3>Assigned to your groups</h3>
+
+
+<h3>Created by you</h3>
+
+
+<h2>Create new message</h2>
+
+<% define_template("message", jsonmodel_definition(:message)) do |form| %>
+    <div class="form-group required">
+        <%= form.label_and_textfield 'title' %>
+    </div>
+
+    <%= form.label_and_textarea 'description' %>
+
+    <div class="form-actions">
+        <button type="submit" class="btn btn-primary"><%= I18n.t("messages._frontend.action.save") %></button>
+        <%= link_to I18n.t("actions.cancel"), :back, :class => "btn btn-cancel btn-default" %>
+    </div>
+<% end %>
+
+<%= form_for @message, :as => "message", :url => {:action => :create}, :html => {:class => 'form-horizontal aspace-record-form', :id => 'new_message_form'} do |f| %>
+    <%= form_context :message, @message do |form| %>
+        <% form.emit_template("message") %>
+        <%= form_plugins_for("message", form) %>
+    <% end %>
+<% end %>
+

@@ -72,10 +72,7 @@ class Message < Sequel::Model(:message)
     super
   end
 
-  def self.messages_for_user(username)
-    user = User.filter(:username => username).first or
-      raise InvalidUsernameException.new
-
+  def self.messages_for_user(user, repo_id)
     User.find_relationship(:message_assignee_user).who_participates_with(user)
   end
 
